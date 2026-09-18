@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive network of maternal stress patient-reported outcome measures">
+  <title>Maternal Stress PROM Network</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <p class="eyebrow">Maternal Stress PROM Scoping Review</p>
+      <h1>Interactive PROM network</h1>
+      <p class="subtitle">Larger nodes appear in more included publication records. Links connect PROMs reported in the same author–year record.</p>
+    </div>
+    <button id="reset-button" class="secondary-button" type="button">Reset view</button>
+  </header>
+
+  <main>
+    <section class="controls" aria-label="Network filters">
+      <label>
+        <span>Find a PROM</span>
+        <input id="search-input" type="search" placeholder="e.g., Perceived Stress Scale" autocomplete="off">
+      </label>
+      <label>
+        <span>Stage 1 construct</span>
+        <select id="stage1-select"><option value="all">All constructs</option></select>
+      </label>
+      <label>
+        <span>Stage 2 context</span>
+        <select id="stage2-select"><option value="all">All contexts</option></select>
+      </label>
+      <label>
+        <span>Minimum records: <strong id="min-count-value">2</strong></span>
+        <input id="min-count-range" type="range" min="1" max="25" step="1" value="2">
+      </label>
+      <label>
+        <span>Minimum shared records</span>
+        <select id="edge-weight-select">
+          <option value="1">1 or more</option>
+          <option value="2">2 or more</option>
+          <option value="3">3 or more</option>
+          <option value="5">5 or more</option>
+        </select>
+      </label>
+      <label class="check-label">
+        <input id="isolates-checkbox" type="checkbox">
+        <span>Show PROMs without visible links</span>
+      </label>
+    </section>
+
+    <section class="summary" aria-live="polite">
+      <span><strong id="visible-node-count">0</strong> PROMs shown</span>
+      <span><strong id="visible-edge-count">0</strong> co-use links shown</span>
+      <span>Node area uses a square-root scale</span>
+    </section>
+
+    <section class="workspace">
+      <div class="network-panel">
+        <div id="network" role="img" aria-label="Interactive network of maternal stress PROMs"></div>
+        <div class="legend" aria-label="Stage 1 legend">
+          <span><i class="legend-dot exposure"></i>Stressor exposure</span>
+          <span><i class="legend-dot subjective"></i>Subjective stress experience</span>
+          <span><i class="legend-dot hybrid"></i>Both</span>
+        </div>
+        <p id="empty-state" class="empty-state" hidden>No PROMs match the current filters.</p>
+      </div>
+
+      <aside id="detail-panel" class="detail-panel" aria-live="polite">
+        <p class="eyebrow">Selected PROM</p>
+        <h2 id="detail-name">Select a node</h2>
+        <p id="detail-description" class="muted">Choose a PROM to inspect its classification, included-record count, and connected measures.</p>
+        <dl id="detail-fields" hidden>
+          <div><dt>Included records</dt><dd id="detail-count"></dd></div>
+          <div><dt>Stage 1</dt><dd id="detail-stage1"></dd></div>
+          <div><dt>Stage 2</dt><dd id="detail-stage2"></dd></div>
+          <div><dt>PROM type</dt><dd id="detail-type"></dd></div>
+          <div><dt>Visible connections</dt><dd id="detail-degree"></dd></div>
+        </dl>
+        <div id="detail-records-block" hidden>
+          <h3>Included author–year records</h3>
+          <p id="detail-records" class="record-list"></p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="method-note">
+      <h2>How to read the network</h2>
+      <p>Each node represents one classified PROM row. Node size reflects the included-record count reported in the source table, not necessarily the number of independent underlying studies. An edge appears when the same author–year record lists both PROMs; thicker edges indicate more shared records.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Source: <code>Pasted markdown(20260918-121134).md</code>. Generated for exploratory mapping of PROM use and co-use.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.30.4/dist/cytoscape.min.js"></script>
+  <script src="network-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
